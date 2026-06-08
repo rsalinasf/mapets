@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaPet's - Servicios Veterinarios y Galletas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#inicio" class="logo">
+                <img src="logomapets.png" alt="MaPet's Logo">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#galletas">Galletas</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <a href="#contacto" class="btn btn-primary">Reservar Cita</a>
+        </div>
+    </nav>
+
+    <section id="inicio" class="hero">
+        <div class="container hero-container">
+            <div class="hero-text">
+                <h1>El cuidado que necesitan, los premios que aman</h1>
+                <p>En MaPet's combinamos la mejor atención veterinaria profesional con la repostería artesanal más deliciosa y saludable para tus mascotas.</p>
+                <div class="hero-buttons">
+                    <a href="#servicios" class="btn btn-primary">Nuestros Servicios</a>
+                    <a href="#galletas" class="btn btn-secondary">Ver Galletas</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="image-placeholder">
+                    <i class="fa-solid fa-dog"></i>
+                    <i class="fa-solid fa-cat"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicios" class="services section-padding">
+        <div class="container">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <div class="grid-4">
+                <div class="card service-card">
+                    <i class="fa-solid fa-stethoscope card-icon"></i>
+                    <h3>Consulta General</h3>
+                    <p>Chequeos completos para asegurar la salud y vitalidad de tu mejor amigo.</p>
+                </div>
+                <div class="card service-card">
+                    <i class="fa-solid fa-syringe card-icon"></i>
+                    <h3>Vacunas</h3>
+                    <p>Plan de vacunación y desparasitación al día para protegerlos de enfermedades.</p>
+                </div>
+                <div class="card service-card">
+                    <i class="fa-solid fa-truck-medical card-icon"></i>
+                    <h3>Eurgencias</h3>
+                    <p>Atención rápida y profesional.</p>
+                </div>
+                <div class="card service-card">
+                    <i class="fa-solid fa-dog card-icon"></i>
+                    <h3>Cabeza de perro</h3>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="galletas" class="store section-padding">
+        <div class="container">
+            <h2 class="section-title">Nuestra Repostería</h2>
+            <div class="grid-4">
+                <div class="card product-card">
+                    <div class="product-img-placeholder">Galleta Hígado</div>
+                    <div class="product-info">
+                        <h3>Galletas de Hígado</h3>
+                        <p class="price">$3.500</p>
+                        <p class="desc">Altas en hierro y vitaminas, ¡su sabor favorito!</p>
+                        <button class="btn btn-primary btn-wa-order" data-product="Galletas de Hígado">Pedir por WhatsApp</button>
+                    </div>
+                </div>
+                <div class="card product-card">
+                    <div class="product-img-placeholder">Galleta Pollo</div>
+                    <div class="product-info">
+                        <h3>Bocados de Pollo</h3>
+                        <p class="price">$3.000</p>
+                        <p class="desc">Suaves y fáciles de masticar, ideales para cachorros.</p>
+                        <button class="btn btn-primary btn-wa-order" data-product="Bocados de Pollo">Pedir por WhatsApp</button>
+                    </div>
+                </div>
+                <div class="card product-card">
+                    <div class="product-img-placeholder">Galleta Manzana</div>
+                    <div class="product-info">
+                        <h3>Premios de Manzana</h3>
+                        <p class="price">$2.800</p>
+                        <p class="desc">Snack dulce, natural y lleno de fibra para la digestión.</p>
+                        <button class="btn btn-primary btn-wa-order" data-product="Premios de Manzana">Pedir por WhatsApp</button>
+                    </div>
+                </div>
+                <div class="card product-card">
+                    <div class="product-img-placeholder">Mix Especial</div>
+                    <div class="product-info">
+                        <h3>Mix Cumpleañero</h3>
+                        <p class="price">$5.000</p>
+                        <p class="desc">Un surtido especial para celebrar su día en grande.</p>
+                        <button class="btn btn-primary btn-wa-order" data-product="Mix Cumpleañero">Pedir por WhatsApp</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="nosotros" class="about section-padding">
+        <div class="container">
+            <h2 class="section-title">¿Por qué elegir MaPet's?</h2>
+            <p class="about-text">Entendemos que no son solo mascotas, son familia. Por eso, hemos creado un espacio donde la salud clínica se encuentra con el regaloneo que merecen. Trabajamos con ingredientes frescos para nuestras galletas y con el mayor estándar ético en nuestra clínica.</p>
+            <div class="features-flex">
+                <div class="feature">
+                    <i class="fa-solid fa-leaf"></i>
+                    <span>100% Natural</span>
+                </div>
+                <div class="feature">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <span>Cuidado Profesional</span>
+                </div>
+                <div class="feature">
+                    <i class="fa-solid fa-star"></i>
+                    <span>Hecho en Chile</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contacto">
+        <div class="container footer-container">
+            <div class="footer-info">
+                <img src="logomapetsblanco.png" alt="MaPet's Logo Blanco" class="footer-logo">
+                <p>Cuidando a tus mejores amigos con amor y profesionalismo.</p>
+            </div>
+            <div class="footer-contact">
+                <h3>Contacto y Horarios</h3>
+                <p><i class="fa-solid fa-location-dot"></i> Av. Siempre Viva 123, Santiago</p>
+                <p><i class="fa-solid fa-clock"></i> Lunes a Viernes: 09:00 - 19:00 hrs</p>
+                <p><i class="fa-solid fa-phone"></i> +56 9 1234 5678</p>
+            </div>
+            <div class="footer-social">
+                <h3>Síguenos</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 MaPet's. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <div id="wa-floating-btn" class="wa-float" title="Contactar por WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

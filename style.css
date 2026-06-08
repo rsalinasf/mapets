@@ -1,0 +1,408 @@
+/* --- Variables y Paleta de Colores --- */
+:root {
+    --bg-light: #E8C4E1;
+    --primary: #A72375;
+    --secondary: #A04B84;
+    --detail: #773277;
+    --text-main: #2B2B2B;
+    --dark-purple: #4F194F;
+    --white: #FFFFFF;
+    --wa-green: #25D366;
+    
+    /* Variables de diseño amigable */
+    --radius-soft: 25px;
+    --radius-pill: 50px;
+    --shadow-soft: 0 10px 25px rgba(79, 25, 79, 0.12);
+    --shadow-hover: 0 15px 35px rgba(79, 25, 79, 0.2);
+}
+
+/* --- Reset y Estilos Base --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: auto; /* El smooth scroll lo maneja JS */
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    color: var(--text-main);
+    background-color: var(--bg-light);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-padding {
+    padding: 80px 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--dark-purple);
+    margin-bottom: 50px;
+    font-weight: 800;
+}
+
+/* --- Botones --- */
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: var(--radius-pill);
+    font-weight: 800;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: var(--white);
+    box-shadow: 0 4px 15px rgba(167, 35, 117, 0.3);
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-purple);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(79, 25, 79, 0.4);
+}
+
+.btn-secondary {
+    background-color: var(--white);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+/* --- Navbar --- */
+.navbar {
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 10px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 60px;
+    width: auto;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    font-weight: 700;
+    color: var(--dark-purple);
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+/* --- Hero Section --- */
+.hero {
+    padding: 80px 0;
+    background: radial-gradient(circle at top left, var(--white), var(--bg-light));
+}
+
+.hero-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.hero-text {
+    flex: 1;
+}
+
+.hero-text h1 {
+    font-size: 3.5rem;
+    line-height: 1.2;
+    color: var(--dark-purple);
+    margin-bottom: 20px;
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: var(--detail);
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.hero-image {
+    flex: 1;
+}
+
+.image-placeholder {
+    width: 100%;
+    height: 400px;
+    background-color: var(--secondary);
+    border-radius: 40px; /* Borde súper redondeado */
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    color: var(--white);
+    gap: 20px;
+}
+
+/* --- Grid y Cards (Servicios y Galletas) --- */
+.grid-4 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background-color: var(--white);
+    border-radius: var(--radius-soft);
+    padding: 30px;
+    box-shadow: var(--shadow-soft);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-hover);
+}
+
+/* Servicios */
+.card-icon {
+    font-size: 3rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.service-card h3 {
+    color: var(--dark-purple);
+    margin-bottom: 15px;
+}
+
+/* Tienda */
+.product-card {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-img-placeholder {
+    height: 180px;
+    background-color: var(--bg-light);
+    border-radius: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--detail);
+    font-weight: 700;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.product-info h3 {
+    color: var(--dark-purple);
+}
+
+.product-info .price {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin: 10px 0;
+}
+
+.product-info .desc {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.product-card .btn {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px;
+}
+
+/* --- Sobre Nosotros --- */
+.about {
+    background-color: var(--white);
+    text-align: center;
+}
+
+.about-text {
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+    font-size: 1.2rem;
+    color: var(--detail);
+}
+
+.features-flex {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.feature {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.feature i {
+    font-size: 2.5rem;
+    color: var(--secondary);
+    background-color: var(--bg-light);
+    padding: 20px;
+    border-radius: 50%;
+}
+
+.feature span {
+    font-weight: 800;
+    color: var(--dark-purple);
+}
+
+/* --- Footer --- */
+footer {
+    background-color: var(--detail);
+    color: var(--bg-light);
+    padding: 60px 0 20px 0;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-logo {
+    height: 80px;
+    margin-bottom: 15px;
+}
+
+.footer-contact h3, .footer-social h3 {
+    color: var(--white);
+    margin-bottom: 20px;
+}
+
+.footer-contact p {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: var(--detail);
+    border-radius: 50%;
+    color: var(--white);
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
+}
+
+.social-icons a:hover {
+    background-color: var(--primary);
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid var(--detail);
+    padding-top: 20px;
+    font-size: 0.9rem;
+}
+
+/* --- WhatsApp Botón Flotante --- */
+.wa-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background-color: var(--wa-green);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+    cursor: pointer;
+    z-index: 1000;
+    animation: pulse-wa 2s infinite;
+    transition: transform 0.3s;
+}
+
+.wa-float:hover {
+    transform: scale(1.1);
+}
+
+@keyframes pulse-wa {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+}
+
+/* --- Responsive básico --- */
+@media (max-width: 768px) {
+    .nav-container { flex-direction: column; gap: 15px; }
+    .hero-container { flex-direction: column; text-align: center; }
+    .hero-buttons { justify-content: center; }
+    .features-flex { gap: 30px; }
+}
