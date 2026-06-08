@@ -2,19 +2,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 1. Lógica del Botón Flotante de WhatsApp
     const waButton = document.getElementById('wa-floating-btn');
-    const waPhoneNumber = '56912345678'; // Reemplazar con el número real de la veterinaria
-    const waDefaultMessage = '¡Hola MaPet\'s! Me gustaría consultar por los servicios o las galletas.';
+    const waPhoneNumber = '56912345678'; // Reemplazar con tu número real
+    const waDefaultMessage = '¡Hola MaPet\'s! Me gustaría consultar por el catálogo de snacks y galletas para mascotas.';
 
     waButton.addEventListener('click', () => {
-        // Codifica el mensaje para que sea válido en una URL
         const encodedMessage = encodeURIComponent(waDefaultMessage);
         const waUrl = `https://wa.me/${waPhoneNumber}?text=${encodedMessage}`;
-        
-        // Abre WhatsApp en una nueva pestaña
         window.open(waUrl, '_blank');
     });
 
-    // Opcional: Lógica para los botones de "Pedir por WhatsApp" en cada tarjeta de producto
+    // Lógica para botones individuales de productos
     const orderButtons = document.querySelectorAll('.btn-wa-order');
     orderButtons.forEach(button => {
         button.addEventListener('click', (e) => {
@@ -36,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetElement = document.getElementById(targetId);
 
             if (targetElement) {
-                // Obtenemos la altura del navbar para no tapar los títulos (aprox 80px)
                 const headerOffset = 80;
                 const elementPosition = targetElement.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.scrollY - headerOffset;
@@ -55,10 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuIcon = mobileMenuBtn.querySelector('i');
 
     mobileMenuBtn.addEventListener('click', () => {
-        // Alternar la clase 'active' para mostrar/ocultar el menú
         navLinksList.classList.toggle('active');
 
-        // Cambiar el ícono: de hamburguesa (bars) a una "X" (xmark)
         if (navLinksList.classList.contains('active')) {
             menuIcon.classList.remove('fa-bars');
             menuIcon.classList.add('fa-xmark');
@@ -68,8 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Detalle de UX (Experiencia de Usuario) bien hecho:
-    // Si el usuario hace clic en un enlace del menú móvil, el menú debe cerrarse solo.
+    // Cierra el menú móvil al hacer clic en un enlace
     const mobileLinks = navLinksList.querySelectorAll('a');
     mobileLinks.forEach(link => {
         link.addEventListener('click', () => {
