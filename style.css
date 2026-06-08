@@ -399,10 +399,100 @@ footer {
     100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
 }
 
-/* --- Responsive básico --- */
+/* =========================================
+   DISEÑO RESPONSIVO (SÚPER DIDÁCTICO)
+   ========================================= */
+
+/* 1. Ocultar elementos de móvil cuando estamos en Pantallas Grandes (PC) */
+@media (min-width: 769px) {
+    .mobile-menu-btn { display: none; } /* Oculta la hamburguesa */
+    .nav-btn-mobile { display: none; } /* Oculta el botón duplicado dentro de la lista */
+}
+
+/* 2. Reglas para Pantallas Pequeñas (Celulares y Tablets hasta 768px) */
 @media (max-width: 768px) {
-    .nav-container { flex-direction: column; gap: 15px; }
-    .hero-container { flex-direction: column; text-align: center; }
-    .hero-buttons { justify-content: center; }
-    .features-flex { gap: 30px; }
+    
+    /* --- Ajustes Generales de Espaciado --- */
+    .section-padding { 
+        padding: 50px 0; /* Reducimos el aire entre secciones para que no haya tanto espacio vacío */
+    }
+    .section-title { 
+        font-size: 2rem; /* Achicamos los títulos principales */
+        margin-bottom: 30px; 
+    }
+
+    /* --- Navbar y Menú Hamburguesa --- */
+    .nav-btn-desktop { 
+        display: none; /* Ocultamos el botón suelto arriba por falta de espacio */
+    }
+    
+    .mobile-menu-btn {
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: var(--dark-purple);
+        cursor: pointer;
+        z-index: 1001; /* Nos aseguramos de que el botón esté por encima del menú desplegado */
+    }
+
+    /* Transformamos la lista horizontal en un menú vertical desplegable */
+    .nav-links {
+        position: absolute;
+        top: 100%; /* Que empiece justo donde termina la barra de navegación */
+        left: 0;
+        width: 100%;
+        background-color: var(--bg-light); /* Fondo que combine con tu paleta */
+        flex-direction: column; /* Apila los enlaces hacia abajo */
+        align-items: center;
+        padding: 30px 0;
+        gap: 25px;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        
+        /* Efecto de aparición */
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0); /* Lo "enrollamos" hacia arriba */
+        transition: clip-path 0.4s ease-in-out;
+    }
+
+    /* Esta clase la agregará JavaScript cuando hagamos clic en la hamburguesa */
+    .nav-links.active {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* Lo "desenrollamos" hacia abajo */
+    }
+
+    /* --- Hero Section (Portada) --- */
+    .hero-container { 
+        flex-direction: column; /* Apila el texto arriba y la imagen abajo */
+        text-align: center; /* Centramos el texto para mejor lectura en móvil */
+    }
+    
+    .hero-text h1 { 
+        font-size: 2.2rem; /* El título de 3.5rem era gigantesco para celular */
+    }
+    
+    .hero-buttons { 
+        flex-direction: column; /* Botones uno arriba del otro */
+        width: 100%; 
+    }
+    
+    .hero-buttons .btn { 
+        width: 100%; /* Botones de lado a lado (más fáciles de tapear con el dedo) */
+    }
+    
+    .image-placeholder { 
+        height: 200px; /* Reducimos el alto de la caja de la imagen */
+        min-width: 200px;
+        font-size: 3rem; 
+    }
+
+    /* --- Footer --- */
+    .footer-container { 
+        text-align: center; /* Todo centrado se ve más ordenado en vertical */
+    }
+    
+    .footer-contact p { 
+        justify-content: center; /* Alinea los íconos de contacto (teléfono, reloj) al centro */
+    }
+    
+    .social-icons { 
+        justify-content: center; 
+    }
 }

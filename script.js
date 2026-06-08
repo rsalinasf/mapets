@@ -49,4 +49,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // 3. Lógica del Menú Hamburguesa para Móviles
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinksList = document.getElementById('nav-links');
+    const menuIcon = mobileMenuBtn.querySelector('i');
+
+    mobileMenuBtn.addEventListener('click', () => {
+        // Alternar la clase 'active' para mostrar/ocultar el menú
+        navLinksList.classList.toggle('active');
+
+        // Cambiar el ícono: de hamburguesa (bars) a una "X" (xmark)
+        if (navLinksList.classList.contains('active')) {
+            menuIcon.classList.remove('fa-bars');
+            menuIcon.classList.add('fa-xmark');
+        } else {
+            menuIcon.classList.remove('fa-xmark');
+            menuIcon.classList.add('fa-bars');
+        }
+    });
+
+    // Detalle de UX (Experiencia de Usuario) bien hecho:
+    // Si el usuario hace clic en un enlace del menú móvil, el menú debe cerrarse solo.
+    const mobileLinks = navLinksList.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navLinksList.classList.remove('active');
+            menuIcon.classList.remove('fa-xmark');
+            menuIcon.classList.add('fa-bars');
+        });
+    });
+
 });
