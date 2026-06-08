@@ -1,75 +1,118 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 1. Lógica del Botón Flotante de WhatsApp
+    // 1. WhatsApp Float
     const waButton = document.getElementById('wa-floating-btn');
-    const waPhoneNumber = '56912345678'; // Reemplazar con tu número real
+    const waPhoneNumber = '56912345678';
     const waDefaultMessage = '¡Hola MaPet\'s! Me gustaría consultar por el catálogo de snacks y galletas para mascotas.';
 
     waButton.addEventListener('click', () => {
-        const encodedMessage = encodeURIComponent(waDefaultMessage);
-        const waUrl = `https://wa.me/${waPhoneNumber}?text=${encodedMessage}`;
-        window.open(waUrl, '_blank');
+        window.open(`https://wa.me/${waPhoneNumber}?text=${encodeURIComponent(waDefaultMessage)}`, '_blank');
     });
 
-    // Lógica para botones individuales de productos
     const orderButtons = document.querySelectorAll('.btn-wa-order');
     orderButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             const productName = e.target.getAttribute('data-product');
-            const specificMessage = `¡Hola MaPet's! Me gustaría encargar: ${productName}.`;
-            const waUrlSpecific = `https://wa.me/${waPhoneNumber}?text=${encodeURIComponent(specificMessage)}`;
-            window.open(waUrlSpecific, '_blank');
+            window.open(`https://wa.me/${waPhoneNumber}?text=${encodeURIComponent(`¡Hola MaPet's! Me gustaría encargar: ${productName}.`)}`, '_blank');
         });
     });
 
-    // 2. Scroll Suave (Smooth Scroll) para enlaces del Navbar
-    const scrollLinks = document.querySelectorAll('a[href^="#"]');
-
-    scrollLinks.forEach(link => {
+    // 2. Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-
+            const targetElement = document.getElementById(this.getAttribute('href').substring(1));
             if (targetElement) {
-                const headerOffset = 80;
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
                 window.scrollTo({
-                    top: offsetPosition,
+                    top: targetElement.getBoundingClientRect().top + window.scrollY - 80,
                     behavior: 'smooth'
                 });
             }
         });
     });
 
-    // 3. Lógica del Menú Hamburguesa para Móviles
+    // 3. Mobile Menu
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const navLinksList = document.getElementById('nav-links');
     const menuIcon = mobileMenuBtn.querySelector('i');
 
-    mobileMenuBtn.addEventListener('click', () => {
+    const toggleMenu = () => {
         navLinksList.classList.toggle('active');
+        menuIcon.className = navLinksList.classList.contains('active') ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+    };
 
-        if (navLinksList.classList.contains('active')) {
-            menuIcon.classList.remove('fa-bars');
-            menuIcon.classList.add('fa-xmark');
-        } else {
-            menuIcon.classList.remove('fa-xmark');
-            menuIcon.classList.add('fa-bars');
+    mobileMenuBtn.addEventListener('click', toggleMenu);
+    navLinksList.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (navLinksList.classList.contains('active')) toggleMenu();
+        });
+    });
+
+    // 4. Dynamic Navbar
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // 5. Scroll Reveal Premium
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target); 
+            }
+        });
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+
+
+
+
+    // ==========================================
+    // LÓGICA DE LA BROMA PARA LA CUÑADA
+    // ==========================================
+    const prankOverlay = document.getElementById('prank-overlay');
+    const clickHereBtn = document.getElementById('click-here-btn');
+    const closePrankBtn = document.getElementById('close-prank-btn');
+    const popupBox = document.getElementById('popup-box');
+    const baitSection = document.getElementById('phase-bait');
+    const jokeSection = document.getElementById('phase-joke');
+
+    // Hacer que el anuncio aparezca a los 3 segundos de entrar a la página
+    setTimeout(() => {
+        prankOverlay.style.display = 'flex';
+    }, 3000);
+
+    // Cuando hace clic en el botón verde de "CLICK AQUÍ"
+    clickHereBtn.addEventListener('click', () => {
+        // 1. Añade el efecto de sacudida
+        popupBox.classList.add('shake');
+
+        // 2. Oculta el engaño
+        baitSection.style.display = 'none';
+
+        // 3. Muestra el dedo y el texto
+        jokeSection.style.display = 'block';
+        
+        // 4. Sonido de error del sistema (Solo si el navegador lo permite)
+        try {
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioCtx.createOscillator();
+            oscillator.type = 'sawtooth';
+            oscillator.frequency.setValueAtTime(120, audioCtx.currentTime); // Sonido grave y molesto
+            oscillator.connect(audioCtx.destination);
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + 0.3);
+        } catch(e) {
+            console.log("Audio no soportado");
         }
     });
 
-    // Cierra el menú móvil al hacer clic en un enlace
-    const mobileLinks = navLinksList.querySelectorAll('a');
-    mobileLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navLinksList.classList.remove('active');
-            menuIcon.classList.remove('fa-xmark');
-            menuIcon.classList.add('fa-bars');
-        });
+    // Para que pueda cerrar la broma y ver el resto de la página
+    closePrankBtn.addEventListener('click', () => {
+        prankOverlay.style.display = 'none';
     });
 
 });

@@ -1,4 +1,3 @@
-/* --- Importación de la fuente descargada --- */
 @font-face {
     font-family: 'Berlin Sans FB Demi Bold';
     font-style: normal;
@@ -6,10 +5,10 @@
     src: local('Berlin Sans FB Demi Bold'), url('BRLNSDB.woff') format('woff');
 }
 
-/* --- Variables y Paleta de Colores --- */
 :root {
-    --bg-light: #E8C4E1;
+    --bg-light: #f5e4f1; /* Base más clara para el glassmorphism */
     --primary: #A72375;
+    --primary-glow: rgba(167, 35, 117, 0.5);
     --secondary: #A04B84;
     --detail: #773277;
     --text-main: #2B2B2B;
@@ -19,69 +18,77 @@
     
     --radius-soft: 25px;
     --radius-pill: 50px;
-    --shadow-soft: 0 10px 25px rgba(79, 25, 79, 0.12);
-    --shadow-hover: 0 15px 35px rgba(79, 25, 79, 0.2);
 }
 
-/* --- Reset y Estilos Base --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-html {
-    scroll-behavior: auto; 
-}
+html { scroll-behavior: auto; }
 
+/* Fondo Mesh Dinámico */
 body {
     font-family: 'Berlin Sans FB Demi Bold', sans-serif;
     color: var(--text-main);
     background-color: var(--bg-light);
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(255, 255, 255, 0.8) 0px, transparent 50%), 
+        radial-gradient(at 100% 100%, rgba(167, 35, 117, 0.15) 0px, transparent 50%);
+    background-attachment: fixed;
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
 a { text-decoration: none; color: inherit; }
 ul { list-style: none; }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-.section-padding { padding: 80px 0; }
+.section-padding { padding: 90px 0; }
 .section-title {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     color: var(--dark-purple);
     margin-bottom: 50px;
     font-weight: normal;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-/* --- Botones --- */
+/* --- Botones Pro (Shine Effect) --- */
 .btn {
     display: inline-block;
     padding: 12px 28px;
     border-radius: var(--radius-pill);
     font-size: 1.1rem;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     border: none;
     text-align: center;
+    position: relative;
+    overflow: hidden; /* Para el brillo */
 }
 
 .btn-primary {
     background-color: var(--primary);
     color: var(--white);
-    box-shadow: 0 4px 15px rgba(167, 35, 117, 0.3);
+    box-shadow: 0 8px 20px var(--primary-glow);
+}
+
+.btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    transition: all 0.7s ease;
 }
 
 .btn-primary:hover {
     background-color: var(--dark-purple);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(79, 25, 79, 0.4);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(79, 25, 79, 0.4);
 }
+
+.btn-primary:hover::after { left: 200%; } /* El brillo cruza el botón */
 
 /* --- Navbar --- */
 .navbar {
@@ -92,6 +99,13 @@ ul { list-style: none; }
     z-index: 1000;
     padding: 10px 0;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: all 0.4s ease;
+}
+
+.navbar.scrolled {
+    padding: 5px 0;
+    background-color: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 10px 30px rgba(79, 25, 79, 0.15);
 }
 
 .nav-container {
@@ -105,52 +119,86 @@ ul { list-style: none; }
 .nav-links a {
     color: var(--dark-purple);
     transition: color 0.3s;
-    font-size: 20px;
 }
 .nav-links a:hover { color: var(--primary); }
 
-/* --- Hero Section --- */
+/* --- Hero y Separador --- */
 .hero {
-    padding: 80px 0;
-    background: radial-gradient(circle at top left, var(--white), var(--bg-light));
+    padding: 80px 0 120px 0;
+    position: relative;
 }
 .hero-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 40px;
+    position: relative;
+    z-index: 2;
 }
 .hero-text { flex: 1; }
 .hero-text h1 {
-    font-size: 3.5rem;
-    line-height: 1.2;
+    font-size: 3.8rem;
+    line-height: 1.1;
     color: var(--dark-purple);
     margin-bottom: 20px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 .hero-text p {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     margin-bottom: 30px;
     color: var(--detail);
-    font-family: sans-serif; /* Párrafos en fuente genérica para mejor lectura */
+    font-family: sans-serif;
 }
-.hero-buttons { display: flex; gap: 15px; }
-
 .hero-image { flex: 1; }
 .image-placeholder {
-    width: 100%;
-    height: 400px;
-    background-color: var(--secondary);
+    width: 100%; height: 400px;
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
     border-radius: 40px;
-    box-shadow: var(--shadow-soft);
+    box-shadow: 0 20px 40px var(--primary-glow);
     display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 5rem;
-    color: var(--white);
-    gap: 20px;
+    justify-content: center; align-items: center;
+    font-size: 6rem; color: var(--white); gap: 20px;
 }
 
-/* --- Grid y Cards (Catálogo) --- */
+/* Shape Divider SVG */
+.custom-shape-divider-bottom {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+.custom-shape-divider-bottom svg {
+    position: relative; display: block;
+    width: calc(100% + 1.3px); height: 80px;
+}
+.custom-shape-divider-bottom .shape-fill { fill: var(--bg-light); }
+
+/* --- Marquee (Cinta Infinita) --- */
+.marquee-container {
+    background-color: var(--dark-purple);
+    color: var(--white);
+    padding: 15px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.marquee-content {
+    display: flex;
+    animation: scroll-left 25s linear infinite;
+}
+.marquee-content span {
+    font-size: 1.2rem;
+    margin: 0 40px;
+    letter-spacing: 1px;
+}
+@keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* --- Cards Glassmorphism Premium --- */
 .grid-4 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -158,163 +206,125 @@ ul { list-style: none; }
 }
 
 .card {
-    background-color: var(--white);
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
     border-radius: var(--radius-soft);
-    padding: 30px;
-    box-shadow: var(--shadow-soft);
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(79, 25, 79, 0.08);
+    display: flex; flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-hover);
+.card:hover, .card.active:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 40px rgba(79, 25, 79, 0.15);
+    background: rgba(255, 255, 255, 0.9);
 }
 
-.product-card {
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-}
-
-.product-img-placeholder {
-    height: 180px;
-    background-color: var(--bg-light);
+/* Zoom fotográfico en Hover */
+.img-overflow-wrapper {
+    overflow: hidden;
     border-radius: 20px;
     margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--detail);
+}
+.product-img-placeholder {
+    height: 180px;
+    background-color: #fcecf6;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--detail); font-size: 1.1rem;
+    transition: transform 0.5s ease;
+}
+.card:hover .product-img-placeholder {
+    transform: scale(1.08) rotate(1deg);
 }
 
-.product-info {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-}
-
-.product-info h3 { color: var(--dark-purple); }
+.product-info h3 { color: var(--dark-purple); font-size: 1.4rem; }
 .product-info .price {
-    font-size: 1.4rem;
-    color: var(--primary);
-    margin: 10px 0;
+    font-size: 1.5rem; color: var(--primary);
+    margin: 10px 0; text-shadow: 0 2px 5px rgba(167, 35, 117, 0.2);
 }
 .product-info .desc {
-    font-family: sans-serif;
-    font-size: 0.95rem;
-    margin-bottom: 20px;
-    flex-grow: 1;
-}
-.product-card .btn {
-    width: 100%;
-    font-size: 1rem;
-    padding: 10px;
+    font-family: sans-serif; font-size: 0.95rem;
+    margin-bottom: 20px; flex-grow: 1; color: #555;
 }
 
-/* --- Sobre Nosotros --- */
-.about {
-    background-color: var(--white);
-    text-align: center;
+/* --- Nosotros Panel Cristal --- */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: var(--radius-soft);
+    padding: 50px;
+    max-width: 900px; margin: 0 auto;
+    box-shadow: 0 15px 35px rgba(79, 25, 79, 0.1);
 }
 .about-text {
-    max-width: 800px;
-    margin: 0 auto 40px auto;
-    font-size: 1.2rem;
-    color: var(--detail);
-    font-family: sans-serif;
-}
-.features-flex {
-    display: flex;
-    justify-content: center;
-    gap: 50px;
-    flex-wrap: wrap;
-}
-.feature {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-}
-.feature i {
-    font-size: 2.5rem;
-    color: var(--secondary);
-    background-color: var(--bg-light);
-    padding: 20px;
-    border-radius: 50%;
-}
-.feature span { color: var(--dark-purple); }
-
-/* --- Footer --- */
-footer {
-    background-color: var(--detail);
-    color: var(--bg-light);
-    padding: 60px 0 20px 0;
-}
-.footer-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 40px;
+    font-size: 1.2rem; color: var(--detail); font-family: sans-serif;
     margin-bottom: 40px;
 }
-.footer-logo { height: 80px; margin-bottom: 15px; }
-.footer-contact h3, .footer-social h3 {
-    color: var(--white);
-    margin-bottom: 20px;
-}
-.footer-contact p {
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: sans-serif;
-}
-.social-icons { display: flex; gap: 15px; }
-.social-icons a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background-color: var(--dark-purple);
-    border-radius: 50%;
-    color: var(--white);
-    font-size: 1.2rem;
-    transition: background-color 0.3s;
-}
-.social-icons a:hover { background-color: var(--primary); }
-.footer-bottom {
-    text-align: center;
-    border-top: 1px solid var(--dark-purple);
-    padding-top: 20px;
-    font-size: 0.9rem;
-    font-family: sans-serif;
-}
-
-/* --- WhatsApp Botón Flotante --- */
-.wa-float {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 60px;
-    height: 60px;
-    background-color: var(--wa-green);
-    color: var(--white);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 35px;
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-    cursor: pointer;
-    z-index: 1000;
-    animation: pulse-wa 2s infinite;
+.features-flex { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; }
+.feature i {
+    font-size: 2.5rem; color: var(--white);
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
+    padding: 20px; border-radius: 50%;
+    box-shadow: 0 10px 20px var(--primary-glow);
     transition: transform 0.3s;
 }
-.wa-float:hover { transform: scale(1.1); }
+.feature:hover i { transform: rotate(15deg) scale(1.1); }
+.feature span { color: var(--dark-purple); margin-top: 15px; font-size: 1.1rem; }
+
+/* --- Footer --- */
+footer { background-color: var(--detail); color: var(--bg-light); padding: 60px 0 20px 0; }
+.footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px; }
+.footer-logo { height: 80px; margin-bottom: 15px; }
+.footer-contact h3, .footer-social h3 { color: var(--white); margin-bottom: 20px; }
+.footer-contact p { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; font-family: sans-serif; }
+.social-icons { display: flex; gap: 15px; }
+.social-icons a {
+    display: flex; align-items: center; justify-content: center;
+    width: 45px; height: 45px;
+    background-color: rgba(255,255,255,0.1); border-radius: 50%;
+    color: var(--white); font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+.social-icons a:hover { background-color: var(--primary); transform: translateY(-5px); }
+.footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; font-size: 0.9rem; font-family: sans-serif; }
+
+/* --- Animaciones Modernas --- */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+.floating { animation: float 5s ease-in-out infinite; }
+
+.reveal {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+.reveal.active { opacity: 1; transform: translateY(0) scale(1); }
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+
+/* Botón WhatsApp */
+.wa-float {
+    position: fixed; bottom: 30px; right: 30px;
+    width: 65px; height: 65px;
+    background-color: var(--wa-green); color: var(--white);
+    border-radius: 50%; display: flex; justify-content: center; align-items: center;
+    font-size: 35px; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+    cursor: pointer; z-index: 1000; animation: pulse-wa 2s infinite;
+    transition: transform 0.3s;
+}
+.wa-float:hover { transform: scale(1.15) rotate(-5deg); }
 @keyframes pulse-wa {
     0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-    70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+    70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
     100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
 }
 
@@ -376,4 +386,88 @@ footer {
     .footer-container { text-align: center; }
     .footer-contact p { justify-content: center; }
     .social-icons { justify-content: center; }
+}
+
+
+/* =========================================
+   ESTILOS DE LA BROMA OCULTA
+   ========================================= */
+
+.ad-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(79, 25, 79, 0.7); /* Fondo oscuro */
+    backdrop-filter: blur(5px);
+    display: none; /* Oculto por defecto, lo muestra el JS */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Por encima de TODO */
+}
+
+.ad-box {
+    background: white;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    transform: scale(0.9);
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    border: 4px solid var(--primary);
+}
+
+@keyframes popIn {
+    to { transform: scale(1); }
+}
+
+#phase-bait h2 { color: var(--dark-purple); margin-bottom: 15px; font-size: 1.8rem; }
+#phase-bait p { font-family: sans-serif; color: #666; margin-bottom: 25px; }
+
+.prank-btn {
+    background-color: var(--wa-green);
+    color: white;
+    border: none;
+    padding: 15px 35px;
+    font-size: 1.3rem;
+    font-family: 'Berlin Sans FB Demi Bold', sans-serif;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+    transition: transform 0.2s;
+    animation: pulse 1.5s infinite;
+}
+
+.joke-content { display: none; }
+
+.joke-content i {
+    font-size: 7rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+    display: block;
+    animation: growIcon 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.joke-content h1 {
+    color: var(--dark-purple);
+    font-size: 2.2rem;
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 1.1;
+}
+
+@keyframes growIcon {
+    from { transform: scale(0); rotate: -45deg; }
+    to { transform: scale(1); rotate: 0deg; }
+}
+
+.shake {
+    animation: shakeAnim 0.5s linear;
+    border-color: red !important;
+}
+
+@keyframes shakeAnim {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-15px); }
+    40%, 80% { transform: translateX(15px); }
 }

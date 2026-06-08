@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaPet's - Área de Pruebas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @font-face {
+            font-family: 'Berlin Sans FB Demi Bold';
+            src: local('Berlin Sans FB Demi Bold'), url('BRLNSDB.woff') format('woff');
+        }
+
+        body {
+            font-family: 'Berlin Sans FB Demi Bold', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            /* Usamos la misma paleta de MaPet's pero difuminada */
+            background: linear-gradient(135deg, #E8C4E1, #A04B84);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Simula el fondo de la página borroso */
+        .fake-bg {
+            text-align: center;
+            opacity: 0.3;
+            filter: blur(4px);
+            user-select: none;
+        }
+
+        /* El contenedor del anuncio publicitario / Pop-up */
+        .ad-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(79, 25, 79, 0.4); /* Fondo púrpura oscuro transparente */
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .ad-box {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            transform: scale(0.9);
+            opacity: 0;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation-delay: 0.6s; /* Sale de sorpresa un poquito después de cargar */
+            border: 4px solid #A72375;
+        }
+
+        @keyframes popIn {
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* Estilo del anuncio inicial fake */
+        .ad-box h2 {
+            color: #4F194F;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .ad-box p {
+            font-family: sans-serif;
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        /* Botón de engaño */
+        .prank-btn {
+            background-color: #25D366; /* Verde llamativo tipo premio/WhatsApp */
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.3rem;
+            font-family: 'Berlin Sans FB Demi Bold', sans-serif;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            transition: transform 0.2s, background-color 0.2s;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Contenedor del secreto de la broma (oculto al inicio) */
+        .joke-content {
+            display: none;
+        }
+
+        .joke-content i {
+            font-size: 8rem; /* Ícono Gigante */
+            color: #A72375;
+            margin-bottom: 20px;
+            display: block;
+            animation: growIcon 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .joke-content h1 {
+            color: #4F194F;
+            font-size: 2.3rem;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @keyframes growIcon {
+            from { transform: scale(0); rotate: -45deg; }
+            to { transform: scale(1); rotate: 0deg; }
+        }
+
+        /* Animación de sacudida cuando cae en la trampa */
+        .shake {
+            animation: shakeAnim 0.5s linear;
+            border-color: red !important;
+        }
+
+        @keyframes shakeAnim {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="fake-bg">
+        <h1>MaPet's Panel</h1>
+        <p>Configuración de catálogo interno...</p>
+    </div>
+
+    <div class="ad-overlay">
+        <div class="ad-box" id="popup-box">
+            
+            <div id="phase-bait">
+                <h2>¡Felicidades! 🎉</h2>
+                <p>Has sido seleccionada para activar el cupón de 1 año de snacks gratis para tu mascota.</p>
+                <button class="prank-btn" id="click-here-btn">CLICK AQUÍ</button>
+            </div>
+
+            <div class="joke-content" id="phase-joke">
+                <i class="fa-solid fa-hand-middle-finger"></i>
+                <h1>cabeza de perro librero</h1>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('click-here-btn').addEventListener('click', () => {
+            const box = document.getElementById('popup-box');
+            const baitSection = document.getElementById('phase-bait');
+            const jokeSection = document.getElementById('phase-joke');
+
+            // 1. Añade el efecto de sacudida violenta a la tarjeta
+            box.classList.add('shake');
+
+            // 2. Oculta el botón y el texto falso de inmediato
+            baitSection.style.display = 'none';
+
+            // 3. Muestra el dedo gigante y el texto de la broma
+            jokeSection.style.display = 'block';
+            
+            // Opcional: Sonido de alerta del sistema si quieres sumarle volumen
+            const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioCtx.createOscillator();
+            oscillator.type = 'sawtooth';
+            oscillator.frequency.setValueAtTime(150, audioCtx.currentTime); // Sonido gracioso grave
+            oscillator.connect(audioCtx.destination);
+            oscillator.start();
+            oscillator.stop(audioCtx.currentTime + 0.3);
+        });
+    </script>
+</body>
+</html>
